@@ -178,3 +178,32 @@ Encapsulates filters as objects that can then be combined logically (using
         obj.add(self, self.AND)
         obj.negate()
         return obj
+
+
+def __eq__(self, other):
+        """Return True if 'other' is the same query."""
+        if self.__class__ != other.__class__:
+            #print '__class__'
+            return False
+        if self.connector != other.connector:
+            #print 'connector'
+            return False
+        if self.negated != other.negated:
+            #print 'negated'
+            return False
+        if len(self.children) != len(other.children):
+            #print 'len(children)'
+            return False
+        for sc, oc in zip(sorted(self.children), sorted(other.children)):
+            if sc != oc:
+                #print '%r != %r' % (sc, oc)
+                return False
+        return True
+
+
+def __ne__(self, other):
+    return not self == other
+
+
+Node.__eq__ = __eq__
+Node.__ne__ = __ne__
