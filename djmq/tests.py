@@ -66,8 +66,7 @@ def test_not_query():
 
 def test_or_not_query():
     a = Q(a=1)
-    a.negate()
-    expect = Q(b=2) | a
+    expect = Q(b=2) | ~a
     result = parse_query({'$or': [{'$not': [{'a': 1}]}, {'b': 2}]})
     eq_(expect, result)
 
@@ -87,4 +86,16 @@ def test_lt_query():
 def test_gt_lt_query():
     expect = Q(a__gt=3, a__lt=7)
     result = parse_query({'a': {'$gt': 3, '$lt': 7}})
+    eq_(expect, result)
+
+
+def test_lte_query():
+    expect = Q(a__lte=3)
+    result = parse_query({'a': {'$lte': 3}})
+    eq_(expect, result)
+
+
+def test_gte_query():
+    expect = Q(a__gte=3)
+    result = parse_query({'a': {'$gte': 3}})
     eq_(expect, result)

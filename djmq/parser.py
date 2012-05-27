@@ -32,8 +32,12 @@ def parse_query(query, o=None):
                     for comp, value in v.items():
                         if comp == '$gt':
                             q.append(Q(**{'%s__gt' % k: value}))
+                        elif comp == '$gte':
+                            q.append(Q(**{'%s__gte' % k: value}))
                         elif comp == '$lt':
                             q.append(Q(**{'%s__lt' % k: value}))
+                        elif comp == '$lte':
+                            q.append(Q(**{'%s__lte' % k: value}))
                 else:
                     q.append(Q((k, v)))
 
