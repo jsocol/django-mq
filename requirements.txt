@@ -1,2 +1,2 @@
 Django==1.4
-ipython==0.12.1
+nose==1.1.2
